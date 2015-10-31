@@ -1,0 +1,28 @@
+header{
+  background-color: gray;
+}
+
+.contents_top{
+  border-bottom: solid;
+}
+
+.contents_recommend{
+  border-bottom: solid;
+}
+
+.contents_new{
+  border-bottom: solid;
+}
+
+.error{
+  color: red;
+}
+
+.admin-list{
+  
+}
+
+.active{
+  border-radius: 3px;
+  background: #efefef;
+}
