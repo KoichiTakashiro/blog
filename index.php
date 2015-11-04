@@ -23,7 +23,7 @@
           <ul><a href="join/regist.php">無料会員登録</a></ul>
           <ul><a href="login.php">ログイン</a></ul>
       <?php else: ?>
-          <ul><a href="login.php">ログアウト</a></ul>
+          <ul><a href="logout.php">ログアウト</a></ul>
       <?php endif; ?>
     </li>
   </header>

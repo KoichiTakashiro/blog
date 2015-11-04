@@ -22,7 +22,8 @@
     <img src="../assets/image/" alt="おめでとうございます">
   </div>
   <div>
-    <button class="btn" href="../login.php">さっそくブログを始める</button>
+    <!-- <button class="btn" href="../login.php">さっそくブログを始める</button> -->
+    <input type="button" onclick="location.href='../login.php'" value="さっそくブログを始める">
   </div>
   
 </body>
