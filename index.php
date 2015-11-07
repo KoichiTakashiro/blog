@@ -1,6 +1,12 @@
 <?php 
     require('dbconnect.php');
     require('my_function.php');
+
+    //投稿されたブログを最新のものから抽出
+    // $sql = 'SELECT m.name, p.* FROM members m, posts p ORDER BY p.created DESC';
+    $sql = 'SELECT * FROM posts ORDER BY created DESC';
+    $posts = mysqli_query($db, $sql) or die(mysqli_error($db));
+    // $post = mysqli_fetch_assoc($posts);
 ?>
 
 
@@ -18,12 +24,12 @@
   <header>
     <li>
       <ul class="logo"><img src="#" alt="logo"></ul>
-      <!-- ログインして3時間以内の場合True -->
+      <!-- ログイン判定 -->
       <?php if(isset($_SESSION["id"]) && $_SESSION["time"] + 10800 >time()): ?>
+          <ul><a href="logout.php">ログアウト</a></ul>
+      <?php else: ?>
           <ul><a href="join/regist.php">無料会員登録</a></ul>
           <ul><a href="login.php">ログイン</a></ul>
-      <?php else: ?>
-          <ul><a href="logout.php">ログアウト</a></ul>
       <?php endif; ?>
     </li>
   </header>
@@ -32,7 +38,7 @@
   <div class="contents_top">
     <div class="container">
       <div class="row">
-        <h1>ゴルフファーのための簡易ブログ作成サイト</h1>
+        <h1>TakaBlog</h1>
         <p>簡単に無料でブログを運営できます。面倒な初期設定はありません。</p>
         <div>
           <?php if(isset($_SESSION["id"]) && $_SESSION["time"] + 10800 >time()): ?>
@@ -44,23 +50,29 @@
       </div>
     </div>
   </div>
-
-<!-- おすすめブログ掲載 -->
-  <div class="contents_reccomend">
-    <div class="container">
-      <div class="row">
-        <h1>おすすめブログ</h1>
-        <p>あなたにおすすめのブログが表示されます</p>
-      </div>
-    </div>
-  </div>
-
 <!-- 新着ブログ -->
   <div class="contents_new">
     <div class="container">
       <div class="row">
         <h1>新着ブログ</h1>
         <p>新着ブログをピックアップします</p>
+      </div>
+      <div class="row">
+
+        <?php while($post = mysqli_fetch_assoc($posts)): ?> 
+          <p><a href="view.php?id=<?php echo $post["id"]; ?>"><?php echo '<br>';?><?php echo $post["title"]; echo $post["created"] ;?></a>
+          </p>
+        <?php endwhile; ?>
+
+      </div>
+    </div>
+  </div>
+<!-- おすすめブログ掲載 -->
+  <div class="contents_reccomend">
+    <div class="container">
+      <div class="row">
+        <h1>おすすめブログ</h1>
+        <p>運営からの一押しブログが表示されます</p>
       </div>
     </div>
   </div>

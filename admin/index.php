@@ -11,6 +11,14 @@
                       );
         $members = mysqli_query($db, $sql) or die(mysqli_error($db));
         $member = mysqli_fetch_assoc($members);
+
+        //会員情報の取得
+        $sql = sprintf('SELECT m.name, p.* FROM members m, posts p 
+                    WHERE m.id=p.member_id AND p.member_id=%d ORDER BY created DESC',
+                  mysqli_real_escape_string($db, $_SESSION["id"])
+                  );
+        $posts = mysqli_query($db, $sql) or die(mysqli_error($db));
+        // $post = mysqli_fetch_assoc($posts);
         
     }else{
         //ログインしていない場合
@@ -71,11 +79,14 @@
              
           ?>
           <input type="button" onclick="location.href='write.php'" value="ブログを書く">
-                      
-
-
         </div>
-          
+        <div>
+          <h2>最近投稿した記事</h2>
+          <?php while($post = mysqli_fetch_assoc($posts)):?>
+              <a href="view.php?id=<?php echo $post['id'] ;?>">
+                <?php echo $post['title'] . '<br>' . $post["created"] . '<br>' ;?></a>
+          <?php endwhile; ?>
+        </div>
       </div>
     </div>
   </div>
