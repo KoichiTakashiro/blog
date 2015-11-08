@@ -59,12 +59,14 @@
         <?php echo "セキュリティを考慮し表示しません" ?>
       </div>
       <div>
-          <label for="">プロフィール画像</label>
+          <label for="">プロフィール画像：</label>
           <?php
               if ($_SESSION["join"]["picture"] != "") {
                 echo sprintf('<img src="../member_picture/%s" width="100" height="100">',
                           $_SESSION["join"]["picture"]
                 );
+                echo "<br>";
+                echo "※こちらのデフォルト画像が登録されますがよろしいですか？";
               }else{
                 echo "画像が登録されていません。会員登録後にも追加できます。";
               }

@@ -3,7 +3,7 @@
     require('../dbconnect.php');
     require('../my_function.php');
 
-    //ログインして3時間以内ならTrue
+    //ログイン判定
     if(isset($_SESSION["id"]) && $_SESSION["time"] + 10800 >time()){
         //ログインしている場合
         $sql = sprintf('SELECT * FROM members WHERE id=%d',
@@ -12,7 +12,7 @@
         $members = mysqli_query($db, $sql) or die(mysqli_error($db));
         $member = mysqli_fetch_assoc($members);
 
-        //会員情報の取得
+        //ブログ情報の取得
         $sql = sprintf('SELECT m.name, p.* FROM members m, posts p 
                     WHERE m.id=p.member_id AND p.member_id=%d ORDER BY created DESC',
                   mysqli_real_escape_string($db, $_SESSION["id"])
@@ -29,20 +29,10 @@
     
 ?>
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <title>Blog for Golfers</title>
-  <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-  <link rel="stylesheet" href="../assets/main.css">
-</head>
-  <header>
-    <li>
-      <ul class="logo"><img src="#" alt="logo"></ul>
-      <a href="../index.php">サイトTopへ</a>
-      <ul><a href="../logout.php">ログアウト</a></ul>
-    </li>
-  </header>
+<!-- HTMLヘッダ&ヘッダー&bodyの開始タグ -->
+  <?php
+    require('../header.php');
+  ?>
   <!-- 管理画面左側のサイドバー -->
   <div class="container">
     <div class="row">
@@ -65,13 +55,17 @@
         <div>
           <?php
               //プルフィール写真の表示
-              if ($member["picture"] != "") {
-              echo sprintf('<img src="../member_picture/%s" width="100" height="100">',
+              if ($member["picture"] == "default.png") {
+                  echo '<img src="../member_picture/default.png" width="100" height="100">';
+              
+              }elseif ($member["picture"] != "") {
+                  echo sprintf('<img src="../member_picture/%s" width="100" height="100">',
                            $member["picture"]
-              );
+                  );
               }else{
                   echo '<img src="../assets/image/default.jpg">';
               }
+
               //○○のブログ、と表示
               echo sprintf('%sのブログ',
                           mysqli_real_escape_string($db, $member["name"])
@@ -82,10 +76,14 @@
         </div>
         <div>
           <h2>最近投稿した記事</h2>
-          <?php while($post = mysqli_fetch_assoc($posts)):?>
-              <a href="view.php?id=<?php echo $post['id'] ;?>">
-                <?php echo $post['title'] . '<br>' . $post["created"] . '<br>' ;?></a>
-          <?php endwhile; ?>
+          <?php if ($post = mysqli_fetch_assoc($posts)): ?> 
+              <?php while($post = mysqli_fetch_assoc($posts)):?>
+                  <a href="view.php?id=<?php echo $post['id'] ;?>">
+                    <?php echo $post['title'] . '<br>' . $post["created"] . '<br>' ;?></a>
+              <?php endwhile; ?>
+          <?php else: ?>
+              <?php echo "投稿済みのブログはありません。";?>
+          <?php endif ;?>
         </div>
       </div>
     </div>

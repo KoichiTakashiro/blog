@@ -36,21 +36,10 @@
     
 ?>
 <!DOCTYPE html>
-  <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <title>Blog for Golfers</title>
-    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="../assets/main.css">
-  </head>
-  <body>
-    <header>
-      <li>
-        <ul class="logo"><img src="#" alt="logo"></ul>
-        <a href="../index.php">サイトTopへ</a>
-        <ul><a href="../logout.php">ログアウト</a></ul>
-      </li>
-    </header>
+  <!-- HTMLヘッダ&ヘッダー&bodyの開始タグ -->
+  <?php
+    require('../header.php');
+  ?>
     <!-- 管理画面左側のサイドバー -->
     <div class="container">
       <div class="row">

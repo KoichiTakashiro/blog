@@ -17,14 +17,10 @@
 
 ?>
 <!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <title>Blog for Golfers</title>
-    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="../assets/main.css">
-  </head>
-  <body>
+<!-- HTMLヘッダ&ヘッダー&bodyの開始タグ -->
+  <?php
+    require('../header.php');
+  ?>
     <header>
       <li>
         <ul class="logo"><img src="#" alt="logo"></ul>
@@ -36,7 +32,7 @@
       <h1>投稿が完了しました</h1>
     </div>
     <div>
-      <a href="view.php?id=<?php echo $post["id"]; ?>">投稿した内容を確認する</a>
+      <a href="../view.php?id=<?php echo $post["id"]; ?>" target="_blank">投稿内容を確認する</a>
     </div>
     <div>
       <a href="index.php">管理画面に戻る</a>

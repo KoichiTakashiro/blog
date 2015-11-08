@@ -47,7 +47,7 @@
                 $picture_name = date('YmdHis') . $_FILES["picture"]["name"];
                 move_uploaded_file($_FILES["picture"]["tmp_name"], '../member_picture/' . $picture_name);
             }else{
-                $picture_name = date('YmdHis') . 'default.jpg';
+                $picture_name = 'default.png';
             }
             $_SESSION["join"] = $_POST;
             $_SESSION["join"]["picture"] = $picture_name;

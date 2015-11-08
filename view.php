@@ -1,7 +1,7 @@
 <?php
     session_start();
-    require('../dbconnect.php');
-    require('../my_function.php');
+    require('dbconnect.php');
+    require('my_function.php');
 
     //ログイン判定
     if(!isset($_SESSION["id"])){
@@ -27,25 +27,30 @@
     $post_c = mysqli_fetch_assoc($posts_c);
     //var_dump($post_c);
 
+    // コメントをDBへ登録する
+    if (isset($_POST["content"])) {
+        $sql_com = sprintf('INSERT INTO comments SET content="%s", member_id=%d, reply_post_id=%d, created=NOW()',
+                      mysqli_real_escape_string($db, $_POST["content"]),
+                      $_SESSION["id"],
+                      $post["id"]
+        );
+        mysqli_query($db, $sql_com);
+    }
+
+    $sql_comments = sprintf('SELECT m.name, c.* FROM members m, comments c WHERE m.id=c.member_id AND reply_post_id=%d ORDER BY created DESC',
+                            $_REQUEST["id"]
+    );
+
+    $comments = mysqli_query($db, $sql_comments);
+
     
 ?>
 <!DOCTYPE html>
-  <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <title>Blog for Golfers</title>
-    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="../assets/main.css">
-  </head>
-  <body>
-    <header>
-      <li>
-        <ul class="logo"><img src="#" alt="logo"></ul>
-        <a href="../index.php">サイトTopへ</a>
-        <ul><a href="../login.php">ログアウト</a></ul>
-      </li>
-    </header>
-    <!-- 管理画面左側のサイドバー -->
+  <!-- HTMLヘッダ&ヘッダー&bodyの開始タグ -->
+  <?php
+    require('header.php');
+  ?>
+    <!-- ブログ表示欄 -->
     <div class="container">
       <div class="row">
         <div>
@@ -61,6 +66,36 @@
         <div>
           <span><?php echo $post["content"] ;?></span>
         </div>
+      </div>
+
+      <!-- コメント記入欄 -->
+      <div class="row">
+        <form action="" method="post">
+          <textarea name="content" cols="30" rows="3" placeholder="コメントを記入してください"></textarea>
+          <input type="submit" value="コメントを送る">
+        </form>
+      </div>
+
+
+      <!-- コメント表示欄 -->
+      <div class="row">
+          <?php while ($comment = mysqli_fetch_assoc($comments)):?>
+              <div class="comment-box">
+                <?php 
+                    echo "<br>";
+                    echo $comment["name"];
+                    echo "</br>";
+
+                    echo "<br>";
+                    echo $comment["created"];
+                    echo "</br>";
+
+                    echo "<br>";
+                    echo $comment["content"];
+                    echo "</br>";
+                ;?>
+              </div>
+          <?php endwhile; ?>
       </div>
     </div>
   </body>
