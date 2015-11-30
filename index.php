@@ -38,12 +38,17 @@
     $start = ($page - 1) * 5;
     $start = max(0, $start);
 
+<<<<<<< HEAD
     $sql = sprintf('SELECT m.name, m.picture, p.* FROM members m, posts p 
+=======
+    $sql = sprintf('SELECT m.name, p.* FROM members m, posts p 
+>>>>>>> 40d0357ca4f63d4a4608157feb8b9443be9de922
         WHERE m.id=p.member_id ORDER BY p.created DESC LIMIT %d, 5',
         $start
         );
     $posts = mysqli_query($db, $sql) or die(mysqli_error($db));
 
+<<<<<<< HEAD
    	
     
 
@@ -138,4 +143,84 @@
       ?>
 		</div>
 	</body>
+=======
+?>
+
+
+<!DOCTYPE html>
+  <!-- HTMLヘッダ&ヘッダー&bodyの開始タグ -->
+  <?php
+    require('header.php');
+  ?>
+
+  <!-- コンテンツTop -->
+  <div class="contents_top">
+    <div class="container">
+      <div class="row">
+        <h1>TakaBlog</h1>
+        <p>簡単に無料でブログを運営できます。面倒な初期設定はありません。</p>
+        <div>
+          <?php if(isset($_SESSION["id"]) && $_SESSION["time"] + 10800 >time()): ?>
+              <input type="button" value="無料会員登録" onClick="location.href='join/regist.php'">
+              <input type="button" value="ログイン" onClick="location.href='login.php'">
+          <?php endif; ?>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- 新着ブログ -->
+  <div class="contents_new">
+    <div class="container">
+      <div class="row">
+        <h1>新着ブログ</h1>
+        <p>新着ブログをピックアップします</p>
+      </div>
+
+      <!-- 新着ブログを5件ずつ表示 -->
+      <div class="row">
+        <?php while($post = mysqli_fetch_assoc($posts)): ?> 
+          <p><a href="view.php?id=<?php echo $post["id"]; ?>"><?php echo '<br>';?><?php echo $post["title"]; echo $post["created"] ;?></a>
+          </p>
+        <?php endwhile; ?>
+      </div>
+    
+      <!-- ページング用のボタン設置 -->
+      <div class="row">
+          <?php if ($page > 1){ ?>
+              <span><a href="index.php?page=<?php print($page -1); ?>">前の5件</a></span>  
+          <?php }else{ ?>
+              <span>前の5件</span>
+          <?php } ?>
+
+          <?php if ($page < $maxPage){ ?>
+              <span><a href="index.php?page=<?php print($page +1); ?>">次の5件</a></span>  
+          <?php }else{ ?>
+              <span>次の5件</span>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- おすすめブログ掲載 -->
+  <div class="contents_reccomend">
+    <div class="container">
+      <div class="row">
+        <h1>おすすめブログ</h1>
+        <p>運営からの一押しブログが表示されます</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+   <li>
+     <ul>管理人自己紹介</ul>
+     <ul>お問い合わせ</ul>
+     <ul>利用規約</ul>
+   </li>
+  </footer>
+
+  <script src="js/bootstrap.min.js"></script>
+</body>
+>>>>>>> 40d0357ca4f63d4a4608157feb8b9443be9de922
 </html>

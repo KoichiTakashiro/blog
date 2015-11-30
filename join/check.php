@@ -26,6 +26,7 @@
 ?>
 
 <!DOCTYPE html>
+<<<<<<< HEAD
 <?php
   require('../admin/head.php');
   require('../admin/header.php');
@@ -80,6 +81,60 @@
   </div>
 </div>
   
+=======
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog for Golfers</title>
+  <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link rel="stylesheet" href="assets/main.css">
+
+</head>
+<body>
+  <h1>登録情報の確認</h1>
+  <form action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="action" value="submit">
+    <div>
+      <!-- ニックネームの確認 -->
+      <div>
+        <label for="">ニックネーム：</label>
+        <?php if (isset($_SESSION["join"]['name'])): ?>
+            <?php echo h($_SESSION['join']['name']);?>
+        <?php endif; ?>
+      </div>
+      <!-- メールアドレスの確認 -->
+      <div>
+        <label for="">メールアドレス：</label>
+        <?php if (isset($_SESSION["join"]['email'])): ?>
+            <?php echo h($_SESSION["join"]["email"]); ?>
+        <?php endif; ?>
+      </div>
+      <!-- パスワードの確認 -->
+      <div>
+        <label for="">パスワード：</label>
+        <?php echo "セキュリティを考慮し表示しません" ?>
+      </div>
+      <div>
+          <label for="">プロフィール画像：</label>
+          <?php
+              if ($_SESSION["join"]["picture"] != "") {
+                echo sprintf('<img src="../member_picture/%s" width="100" height="100">',
+                          $_SESSION["join"]["picture"]
+                );
+                echo "<br>";
+                echo "※こちらのデフォルト画像が登録されますがよろしいですか？";
+              }else{
+                echo "画像が登録されていません。会員登録後にも追加できます。";
+              }
+               
+          ?>
+      </div>
+      <div>
+        <a href="regist.php?action=rewrite">&laquo;&nbsp;修正する</a> | 
+        <input type="submit" value="登録する">
+      </div>
+  </form>
+>>>>>>> 40d0357ca4f63d4a4608157feb8b9443be9de922
   
 </body>
 </html>

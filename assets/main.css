@@ -2,7 +2,11 @@ header{
   background-color: gray;
 }
 
+<<<<<<< HEAD
 /*.contents_top{
+=======
+.contents_top{
+>>>>>>> 40d0357ca4f63d4a4608157feb8b9443be9de922
   border-bottom: solid;
 }
 
@@ -12,7 +16,11 @@ header{
 
 .contents_new{
   border-bottom: solid;
+<<<<<<< HEAD
 }*/
+=======
+}
+>>>>>>> 40d0357ca4f63d4a4608157feb8b9443be9de922
 
 .error{
   color: red;
@@ -30,6 +38,7 @@ header{
 .comment-box{
   border-bottom: solid;
 }
+<<<<<<< HEAD
 /* Carousel Styles */
 .carousel-indicators .active {
     background-color: white;
@@ -163,6 +172,8 @@ header{
   border-right-color:#ddd;
   border-width:8px;
 }
+=======
+>>>>>>> 40d0357ca4f63d4a4608157feb8b9443be9de922
 
 
 /*
